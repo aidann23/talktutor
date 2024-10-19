@@ -1,17 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Fredoka", sans-serif;
+    font-family: "Raleway", sans-serif;
     outline: none;
     border: none;
     transition: .2s linear;
 }
 
 body {
-    background: #2e3141;
+    background: white;
 }
 
 html {
@@ -23,28 +24,29 @@ html {
     top: 0;
     left: 0;
     width: 100%;
-    padding: 20px 10%;
+    padding: 10px 5%; /* Reduced padding to shrink the space */
     display: flex;
     justify-content: space-between;
     align-items: center;
     z-index: 100;
-    background-color: #2e3141;
-    border-color: #424556;
+    background-color: #003f88;
+    margin-bottom: 0;
+    margin-top: 0;
 }
 
-.logo {
-    font-size: 40px;
-    color: #6AC5FE;
-    text-decoration: none;
-    font-weight: 600;
+.header img {
+    width: auto;
+    height: 50px; /* Adjust the height of the logo */
+    margin: 0; /* Ensure no extra margin around the image */
+    margin-left: 60px;
 }
 
 .navbar a {
-    font-size: 18px;
+    font-size: 20px;
     color: white;
     text-decoration: none;
     font-weight: 500;
-    margin-left: 35px;
+    margin-left: 30px; /* Reduced margin to bring links closer */
     transition: 300ms;
 }
 
@@ -52,34 +54,108 @@ html {
     color: #6AC5FE;
 }
 
+
 .banner {
     height: 100vh;
     display: flex;
     align-items: center;
     padding: 0 10%;
     padding-right: 20px;
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
 }
 
 .banner img {
     height: 90%;
     width: 90%;
     border-radius: 50%;
-    margin-left: 50px;
     object-fit: cover;
 }
 
+.banner img:hover {
+    transform: scale(1.10);
+}
+
 .banner-content {
-    max-width: 650px;
+    max-width: 775px;
 }
 
 .banner-content h1 {
     font-size: 70px;
-    font-weight: 700;
-    color: white;
+    font-weight: 300;
+    color: #003f88;
     padding-bottom: 10px;
+    text-align: left;
+    font-family: "Raleway", sans-serif;
 }
 
-.banner-content p {
-    font-size: 20px;
+
+.banner-content a {
+    display: inline-block;
+    padding: .75rem 1.5rem;
+    background-color: #003f88;
     color: white;
+    border-radius: 15px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    font-size: 24px;
+    margin-top: 10px;
 }
+
+.banner-content a:hover {
+    background-color: #4a99ce;
+}
+
+.about::before {
+    content: '';
+    position: absolute;
+    top: -100px; /* Adjust based on your needs */
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background-color: #003f88; /* Color of your angled section */
+    transform: skewY(3deg); /* This creates the angle */
+    transform-origin: top left;
+}
+
+.spiral {
+    width: 100%;  /* This will make the image span the entire width */
+    height: auto;  /* Keep the aspect ratio */
+    margin: 0;     /* Remove any margins */
+    padding: 0;    /* Remove any padding */
+    display: block; /* Ensure the element behaves as a block-level element */
+}
+
+.spiral img {
+    width: 100%;  /* Make sure the image itself scales to the parent width */
+    height: auto; /* Maintain aspect ratio */
+}
+
+
+.about {
+    position: relative;
+    height: 100vh;
+    background-color: #003f88;
+    display: flex; /* Add flex to make the content horizontal */
+    justify-content: space-around; /* To add spacing between the sections */
+    align-items: center; /* Vertically center the content */
+    padding: 10px; /* Add some padding */
+}
+
+.about-content,
+.abouttwo-content {
+    position: relative;
+    max-width: 500px; /* Make the sections narrower for better fit side by side */
+    color: white; /* Ensure text color contrasts the background */
+}
+
+.about-content h2,
+.abouttwo-content h2 {
+    font-size: 50px;
+    margin-bottom: 20px;
+}
+
+.about-content p,
+.abouttwo-content p {
+    font-size: 24px;
+}
+
