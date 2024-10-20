@@ -56,8 +56,6 @@
             border-radius: 25px;
         }
 
-
-
         /* Code editor */
         textarea#codeInput {
             width: 100%;
@@ -76,8 +74,6 @@
             margin-bottom: 15px;
             color: #333;
         }
-
-
 
         /* Transcription display area */
         #transcriptionDisplay {
@@ -237,6 +233,26 @@
             vapiRef.current.on('error', function (error) {
                 console.error('IntervAI error:', error);
                 updateTranscription('Error: ' + error.message);
+            });
+
+            // Send Text Message to Assistant button
+            const sendButton = document.getElementById('sendTextMessage');
+            sendButton.addEventListener('click', function () {
+                const codeInput = document.getElementById('codeInput').value;
+
+                if (vapiRef.current && codeInput) {
+                    // Sending text message to the assistant
+                    vapiRef.current.send({
+                        type: 'text',
+                        text: codeInput
+                    });
+
+                    // Display the message in the transcription area
+                    updateTranscription(`[User]: ${codeInput}`);
+                    document.getElementById('codeInput').value = ''; // Clear the textarea after sending
+                } else {
+                    console.error('VAPI SDK is not initialized or input is empty.');
+                }
             });
         }
 
