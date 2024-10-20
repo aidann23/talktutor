@@ -63,6 +63,70 @@ body, html {
     border-radius: 25px;
 }
 
+
+/* Dropdown Container */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Main dropdown link (IntervAI) */
+.dropdown-link {
+    font-size: 18px;
+    color: black;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+/* Dropdown content */
+.drop-down {
+    display: none; /* Hidden by default */
+    position: absolute;
+    background-color: rgb(255, 255, 255);
+    color: black;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 0.5rem;
+    padding: 0.5rem 0;
+    min-width: 60px;
+    margin-top: 0.15rem;
+    z-index: 1000;
+}
+
+/* Dropdown Items */
+.drop-down li {
+    list-style: none;
+    padding: 0.5rem 1rem;
+    font-size: 14px;
+    font-weight: 600;
+    display: flex; /* Use flexbox for centering */
+    justify-content: center; /* Horizontally center the text */
+    align-items: center;  /* Vertically center the text */
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* Change dropdown item hover behavior */
+.drop-down li:hover {
+    background-color: rgb(255, 255, 255);
+    color: #fff;
+    border-radius: 0.5rem;
+}
+
+/* Show the dropdown when hovering on parent */
+.dropdown:hover .drop-down {
+    display: block;
+}
+
+/* Hover effect for the dropdown link */
+.dropdown-link:hover {
+    color: black;
+}
+
 .banner {
     display: flex;
     justify-content: center;
