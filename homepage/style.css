@@ -11,41 +11,45 @@
     transition: .2s linear;
 }
 
-body {
-    background: white;
-}
-
-html {
+body, html {
     scroll-behavior: smooth;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+    background: white; /* Ensure the background is white */
 }
 
 .header {
     position: fixed;
-    top: 20px; /* Move the header down slightly */
-    left: 50%; /* Center the header */
-    transform: translateX(-50%); /* Ensure the centering */
-    padding: 10px 30px; /* Adjust padding to make the navbar smaller */
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 30px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     z-index: 100;
     background-color: white;
-    border-radius: 50px; /* Create a circular floating effect */
-    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2); /* Optional: Add shadow for floating effect */
+    border-radius: 50px;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 .header img {
     width: auto;
-    height: 40px; /* Reduce the logo size */
-    margin-right: 20px;
+    height: 40px;
+    margin-right: 10px;
+    margin-top: 10px;
+    background: transparent;
 }
 
 .navbar a {
-    font-size: 18px; /* Reduce font size */
-    color:#003f88;
+    font-size: 18px;
+    color:black;
     text-decoration: none;
     font-weight: 500;
-    margin-left: 20px; /* Adjust the spacing between links */
+    margin-left: 20px;
     transition: 300ms;
 }
 
@@ -54,127 +58,123 @@ html {
 }
 
 .navbar span {
-    padding: 0.5rem 1rem; /* Adjust button size */
-    font-size: 16px; /* Adjust font size in button */
+    padding: 0.5rem 1rem;
+    font-size: 16px;
     border-radius: 25px;
 }
 
-
 .banner {
-    height: 100vh;
     display: flex;
+    justify-content: center;
     align-items: center;
-    padding: 0 10%;
-    padding-right: 10px;
-    background: linear-gradient(180deg, #8c52ff, #5ce1e6);
-}
-
-.banner img {
-    height: 120%;
-    width: 120%;
-    object-fit: cover;
-}
-
-.banner img:hover {
-    transform: scale(1.10);
+    height: 100vh; /* Full height */
+    width: 100vw; /* Full width */
+    background: white; /* Your gradient background */
+    border-radius: 25px; /* Rounded corners */
+    overflow: hidden; /* Prevent overflow of elements inside */
+    text-align: center;
 }
 
 .banner-content {
-    max-width: 764px;
-    margin-left: -50px;
+    width: 80%; /* Adjust width for centered effect */
+    height: 80%;
+    background: linear-gradient(180deg, #8c52ff, #5ce1e6);
+    border-radius: 25px; /* Rounded corners */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+    padding: 20px;
 }
 
 .banner-content h1 {
-    font-size: 70px;
-    font-weight: 300;
+    font-size: 60px;
+    font-weight: 600;
     color: white;
-    padding-bottom: 10px;
-    text-align: left;
-    font-family: "Raleway", sans-serif;
+    text-align: center;
 }
 
+.banner-content p {
+    font-size: 24px;
+    color: white;
+    text-align: center;
+    margin-bottom: 20px;
+}
 
 .banner-content a {
-    display: inline-block;
     padding: .75rem 1.5rem;
     background-color: white;
     color: #003f88;
-    border-radius: 15px;
+    border-radius: 25px;
     text-decoration: none;
     transition: background-color 0.3s;
-    font-size: 24px;
-    margin-top: 10px;
+    font-size: 20px;
+     /* Automatically sets equal margins to the left and right, centering the button */
 }
 
 .banner-content a:hover {
     background-color: #4a99ce;
 }
 
-
-
-.about {
-    position: relative;
-    height: 100vh;
-    background-color: #003f88;
+.image {
+    max-height: 80%;
+    max-width: 40%; /* Keep the robot image within bounds */
     display: flex;
-    justify-content: space-around;
     align-items: center;
-    padding: 10px;
+    justify-content: center;
 }
 
-.spiral {
-    position: absolute; /* This makes the spiral overlay the section */
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%; /* Ensure the image covers the section */
-    z-index: 1; /* Place the spiral behind the text */
-    opacity: 0.5; /* Optional: to make the spiral less prominent */
+.mission-content {
+    max-width: 100%;
+    text-align: center;
+    background: #5ce1e6;
+    padding: 20px;
+    padding-bottom: 70px;
+    padding-left: 120px;
+    padding-right: 120px;
 }
 
-.spiral img {
-    width: 150%;
-    height: auto;
-    object-fit: cover; /* Ensures the image scales correctly */
+.about-section {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    gap: 2rem;
+    background: linear-gradient(#5ce1e6, white);
+    padding-top: 20px;
+    padding-bottom: 50px;
 }
 
 .about-content,
 .abouttwo-content {
-    position: relative;
+    text-align: center;
+    display: inline-block;
+    padding: 1rem 1.75rem;
+    background-color: white;
+    border-radius: 25px;
     max-width: 500px;
+    color: #003f88;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.mission-content h2 {
+    font-size: 70px;
     color: white;
-    z-index: 2; /* Ensure the text stays above the spiral */
+}
+
+.mission-content p {
+    font-size: 24px;
+    color: white;
 }
 
 .about-content h2,
 .abouttwo-content h2 {
-    font-size: 50px;
-    color:#6AC5FE;
-    
+    font-size: 40px;
+    color: #003f88;
 }
 
 .about-content p,
 .abouttwo-content p {
     font-size: 24px;
+    color: #003f88;
 }
-
-.mission {
-    background: linear-gradient(180deg, #003f88, white); /* Adjust the gradient to your liking */
-    padding: 200px 20px;
-    text-align: center;
-    color: white;
-}
-
-.mission-content h2 {
-    font-size: 50px;
-    font-weight: 700;
-    margin-bottom: 30px;
-}
-
-.mission-content p {
-    font-size: 24px;
-    line-height: 1.6;
-    max-width: 800px;
-    margin: 0 auto;
-}
-
