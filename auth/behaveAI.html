@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Behavioral Interview Assistant</title>
+    
     <style>
+      @import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
         body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(180deg, #836FFF, #63D1FF);
+            font-family: 'Raleway', sans-serif; /* Sleek font */
+            background: linear-gradient(180deg, #836FFF, #63D1FF); /* Homepage gradient */
             margin: 0;
             padding: 0;
             height: 100vh;
@@ -21,21 +23,29 @@
             justify-content: space-between;
             align-items: center;
             width: 90%;
-            height: 80vh;
+            height: 90vh;
         }
 
+        .image-png {
+          width: 200px;
+          margin-bottom: 0%;
+          padding: 0px;
+        }
+
+        /* Left container with text and button */
         #app-container {
             background-color: #ffffff;
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
             border-radius: 20px;
             width: 90%;
-            padding: 40px;
+            padding: 20px;
             text-align: center;
         }
 
         h1 {
             font-size: 36px;
-            margin-bottom: 40px;
+            margin-top: auto;
+            margin-bottom: 20px;
             color: #333;
             font-weight: bold;
             letter-spacing: 1px;
@@ -45,7 +55,7 @@
             background-color: #F1F4FF;
             border-radius: 15px;
             padding: 30px;
-            height: 300px;
+            height: 400px;
             overflow-y: auto;
             text-align: left;
             font-family: monospace;
@@ -56,72 +66,85 @@
             box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.05);
         }
 
-        button {
-            font-family: 'Poppins', sans-serif;
-            padding: 10px 20px;
-            margin-top: 20px;
-            background-color: #5dfeca;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 18px;
-        }
-
+        /* Right container for video and sound wave */
         .video-container {
             position: relative;
-            width: 30%;
+            width: 500px; /* Reduced width to move the robot more to the right */
             display: flex;
+            margin-left: 50px;
             flex-direction: column;
-            align-items: center;
         }
 
-        .robot-video {
-            max-width: 80%;
-            border-radius: 5px;
+        .robot-gif {
+            max-width: 100%;
+            border-radius: 300px;
         }
 
-        .wave-effect {
+        /* New home button styling */
+        .home-button {
             position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 100px;
-            background: url('images/wave.png') no-repeat center bottom;
-            background-size: cover;
-            opacity: 0.8;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: white;
+            color: black;
+            border-radius: 50px;
+            text-decoration: none;
+            font-family: "Raleway", sans-serif;
+            font-size: 16px;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s;
         }
+
+        .home-button:hover {
+            color: #8c52ff;
+        }
+
     </style>
 </head>
 <body>
+    <!-- Home Button -->
+    <a href="#" class="home-button">Home</a>
+
+    <!-- Container for text and video -->
     <div class="container">
+        <!-- Left side: Behavioral Interview Assistant text -->
         <div id="app-container">
+          <img src="assets/Logo.png" alt="IntervAI Logo" class="image-png"> 
             <h1>Behavioral Interview Assistant</h1>
+
+            <!-- Transcript display -->
             <div id="result"></div>
+
+            <!-- Call button -->
+            
         </div>
+
+        <!-- Right side: Video and Sound Wave -->
         <div class="video-container">
-          <img src="assets/ani_1.gif" alt="Animated Robot" class="robot-gif">
-          <div class="wave-effect"></div>
-        </div>
+          <img src="assets/ani_1.gif" alt="Animated Robot" class="robot-gif"> 
+          
     </div>
 
     <!-- VAPI SDK Initialization -->
     <script>
       var vapiInstance = null;
-      const assistant = "bee3edf6-94d2-4b5e-8f74-548e53e5f053";
-      const apiKey = "20d9cb30-23f8-47a8-b4e9-6752c84ceada";
+      const assistant = "bee3edf6-94d2-4b5e-8f74-548e53e5f053"; // Substitute with your assistant ID
+      const apiKey = "20d9cb30-23f8-47a8-b4e9-6752c84ceada"; // Substitute with your Public key from VAPI Dashboard.
 
       const buttonConfig = {
-        position: "bottom",
-        offset: "90px",
-        width: "85px",
-        height: "85px",
-        color: `rgb(93, 254, 202)`,
-        type: "pill",
+        position: "bottom-right", // "bottom" | "top" | "left" | "right" | "top-right" | "top-left" | "bottom-left" | "bottom-right"
+        offset: "193px", // decide how far the button should be from the edge
+        width: "85px", // min-width of the button
+        height: "85px", // height of the button
+        color: `rgb(93, 254, 202)`, // Define the color for idle state
+        type: "pill", // or "round"
         icon: `https://unpkg.com/lucide-static@0.321.0/icons/phone.svg`,
-        iconSize: "150px",
-        idle: {}
-      };
-
+        iconSize: "150px", // Set the size of the icon (Increase as needed)
+        idle: { // button state when the call is not active.
+      }
+    };
       (function (d, t) {
         var g = document.createElement(t),
           s = d.getElementsByTagName(t)[0];
@@ -134,9 +157,9 @@
         g.onload = function () {
           if (window.vapiSDK && typeof window.vapiSDK.run === "function") {
               vapiInstance = window.vapiSDK.run({
-                  apiKey: apiKey,
-                  assistant: assistant,
-                  config: buttonConfig
+                  apiKey: apiKey, // mandatory
+                  assistant: assistant, // mandatory
+                  config: buttonConfig, // added the new button configuration here
               });
 
               if (vapiInstance) {
@@ -158,32 +181,34 @@
 
         const resultDiv = document.getElementById('result');
 
+        // Auto-scroll function
         function autoScroll() {
             resultDiv.scrollTop = resultDiv.scrollHeight;
         }
 
+        // Assistant event listeners
         vapiInstance.on('call-start', function() {
-            resultDiv.innerHTML += 'Assistant call started.<br>';
-            autoScroll();
+            resultDiv.innerHTML += 'Assistant call started.<br>'; // Add a line break
+            autoScroll(); // Scroll down when call starts
         });
 
         vapiInstance.on('call-end', function() {
-            resultDiv.innerHTML += 'Assistant call ended.<br>';
-            autoScroll();
+            resultDiv.innerHTML += 'Assistant call ended.<br>'; // Add a line break
+            autoScroll(); // Scroll down when call ends
         });
 
         vapiInstance.on('message', function(message) {
             if (message.type === 'transcript' && message.transcriptType === 'final') {
                 const transcript = message.transcript.replace("ASSISTANT - FINAL", "IntervAI");
-                const formattedMessage = `[IntervAI]: ${transcript}<br>`;
+                const formattedMessage = `[IntervAI]: ${transcript}<br>`; // Add line break after each message
                 resultDiv.innerHTML += formattedMessage;
-                autoScroll();
+                autoScroll(); // Scroll down when new message is added
             }
         });
 
         vapiInstance.on('error', function(error) {
-            resultDiv.innerHTML += 'Error: ' + error.message + '<br>';
-            autoScroll();
+            resultDiv.innerHTML += 'Error: ' + error.message + '<br>'; // Add a line break
+            autoScroll(); // Scroll down when error occurs
         });
       }
     </script>
