@@ -1,25 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coding Environment with VAPI Assistant</title>
+    <title>Coding Environment with IntervAI</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+
         /* General styles */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: "Raleway", sans-serif;
         }
 
         body {
-            font-family: Arial, sans-serif;
             background-color: #f0f2f5;
             display: flex;
             justify-content: center;
             align-items: flex-start;
             height: 100vh;
             padding: 20px;
+            background: linear-gradient(180deg, #836FFF, #63D1FF);
         }
 
         /* Container for the coding environment */
@@ -28,7 +32,7 @@
             width: 100%;
             max-width: 1200px;
             background-color: #fff;
-            border-radius: 8px;
+            border-radius: 25px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
@@ -49,7 +53,10 @@
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
+            border-radius: 25px;
         }
+
+
 
         /* Code editor */
         textarea#codeInput {
@@ -69,6 +76,8 @@
             margin-bottom: 15px;
             color: #333;
         }
+
+
 
         /* Transcription display area */
         #transcriptionDisplay {
@@ -107,39 +116,84 @@
         button:focus {
             outline: none;
         }
+
+        .vapi-call-button {
+            position: absolute;
+            /* Position relative to the container */
+            bottom: 20px;
+            /* Vertical offset */
+            right: 10px;
+            /* Horizontal offset to the right */
+            transform: translateX(-50%);
+            /* Center horizontally if needed */
+            width: 90px;
+            height: 90px;
+            background-color: rgb(93, 254, 202);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .home-button {
+            position: absolute;
+            top: 18px;
+            left: 60px;
+            padding: 8px 16px;
+            background-color: white;
+            color: black;
+            border-radius: 25px;
+            text-decoration: none;
+            font-family: "Raleway", sans-serif;
+            font-size: 26px;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .home-button:hover {
+            color: #8c52ff;
+        }
     </style>
 </head>
-<body>
 
+<body>
+    <a href="/homepage/index.html" class="home-button">Home</a>
     <!-- Main container with two columns -->
     <div class="container">
         <!-- Left column for code input -->
         <div class="left-column">
             <h2>Coding Problem</h2>
             <textarea id="codeInput" placeholder="You can write your code here..."></textarea>
+
+            <!-- Send button to send text to the assistant -->
+            <button id="sendTextMessage">Send to IntervAI</button>
         </div>
 
         <!-- Right column for transcription and assistant messages -->
         <div class="right-column">
-            <h2>AI Interviewer Transcription</h2>
+            <h2>IntervAI Transcription</h2>
             <div id="transcriptionDisplay">
                 <!-- Transcription messages will appear here -->
             </div>
-
-            <!-- Buttons to start and stop the assistant -->
-            <div class="buttons">
-                <button id="startAssistant">Start Assistant</button>
-                <button id="stopAssistant">Stop Assistant</button>
-            </div>
         </div>
+
     </div>
 
     <!-- VAPI SDK Initialization -->
     <script>
-        var vapiInstance = null;
+        var vapiRef = { current: null }; // Reference to hold the VAPI instance
         const assistant = "370c5bcc-ba58-4f8a-a9c7-3600a95f8ac9"; // Substitute with your assistant ID
         const apiKey = "5369ba0c-0e10-4531-a33a-49d3c4f3dab0"; // Replace with environment variable
-        const buttonConfig = {}; // Modify this as required
+        const buttonConfig = {
+            position: "bottom",
+            width: "90px",
+            offset: "8px",
+            height: "90px",
+            color: `rgb(93, 254, 202)`,
+            icon: `https://unpkg.com/lucide-static@0.321.0/icons/phone.svg`,
+            iconSize: "500px",
+            idle: {}
+        };
 
         (function (d, t) {
             var g = document.createElement(t),
@@ -151,7 +205,7 @@
             s.parentNode.insertBefore(g, s);
 
             g.onload = function () {
-                vapiInstance = window.vapiSDK.run({
+                vapiRef.current = window.vapiSDK.run({
                     apiKey: apiKey, // mandatory
                     assistant: assistant, // mandatory
                     config: buttonConfig, // optional
@@ -163,58 +217,36 @@
         })(document, "script");
 
         function setupEventListeners() {
-            // Start Assistant button
-            const startButton = document.getElementById('startAssistant');
-            startButton.addEventListener('click', function() {
-                if (vapiInstance) {
-                    vapiInstance.start();
-                    console.log('Assistant started.');
-                    document.getElementById('transcriptionDisplay').innerText += 'Assistant started.\n';
-                } else {
-                    console.error('VAPI SDK is not initialized yet.');
-                }
-            });
- b
-            // Stop Assistant button
-            const stopButton = document.getElementById('stopAssistant');
-            stopButton.addEventListener('click', function() {
-                if (vapiInstance) {
-                    vapiInstance.stop();
-                    console.log('Assistant stopped.');
-                    document.getElementById('transcriptionDisplay').innerText += 'Assistant stopped.\n';
-                } else {
-                    console.error('VAPI SDK is not initialized yet.');
-                }
-            });
-
-            // Assistant event listeners
-            vapiInstance.on('call-start', function() {
-                console.log('Assistant call started.');
-                document.getElementById('transcriptionDisplay').innerText += 'Assistant call started.\n';
-            });
-
-            vapiInstance.on('call-end', function() {
-                console.log('Assistant call ended.');
-                document.getElementById('transcriptionDisplay').innerText += 'Assistant call ended.\n';
-            });
-
-            vapiInstance.on('message', function(message) {
-                console.log('Message from assistant:', message);
+            // Handle transcription updates from VAPI SDK for both user and IntervAI messages
+            vapiRef.current.on('message', function (message) {
+                console.log('Message received:', message);
                 if (message.type === 'transcript' && message.transcriptType === 'final') {
                     const transcript = message.transcript;
-                    const transcriptType = message.transcriptType;
                     const role = message.role;
-                    const formattedMessage = `[${role.toUpperCase()} - ${transcriptType.toUpperCase()}]: ${transcript}\n`;
-                    document.getElementById('transcriptionDisplay').innerText += formattedMessage;
+
+                    if (role === 'user') {
+                        // If it's the user's input, label it as 'User'
+                        updateTranscription(`[User]: ${transcript}`);
+                    } else if (role === 'assistant') {
+                        // If it's the assistant's response, label it as 'IntervAI'
+                        updateTranscription(`[IntervAI]: ${transcript}`);
+                    }
                 }
             });
 
-            vapiInstance.on('error', function(error) {
-                console.error('Assistant error:', error);
-                document.getElementById('transcriptionDisplay').innerText += 'Error: ' + error.message + '\n';
+            vapiRef.current.on('error', function (error) {
+                console.error('IntervAI error:', error);
+                updateTranscription('Error: ' + error.message);
             });
+        }
+
+        // Function to update transcription and auto-scroll to the bottom
+        function updateTranscription(text) {
+            const transcriptionDisplay = document.getElementById('transcriptionDisplay');
+            transcriptionDisplay.innerText += text + '\n';
+            transcriptionDisplay.scrollTop = transcriptionDisplay.scrollHeight; // Auto-scroll to bottom
         }
     </script>
 </body>
-</html>
 
+</html>
