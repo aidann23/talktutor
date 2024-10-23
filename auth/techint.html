@@ -243,8 +243,12 @@
                 if (vapiRef.current && codeInput) {
                     // Sending text message to the assistant
                     vapiRef.current.send({
-                        type: 'text',
-                        text: codeInput
+                        type: 'add-message',
+                        message: {
+                            role: "user",
+                            content: codeInput
+                        }
+                        
                     });
 
                     // Display the message in the transcription area
